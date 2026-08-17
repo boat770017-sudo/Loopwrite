@@ -34,7 +34,7 @@ async function generateGroq(prompt: string, system: string): Promise<string> {
   if (!apiKey)
     throw new LLMError('GROQ_API_KEY is not set. Get a free key at https://console.groq.com')
   try {
-    const Groq = (await import('groq')).default
+    const Groq = (await import('groq-sdk')).default
     const client = new Groq({ apiKey })
     const res = await client.chat.completions.create({
       model: process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile',
