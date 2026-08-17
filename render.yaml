@@ -1,17 +1,37 @@
 services:
+  # ── Backend: FastAPI / Python ──────────────────────────────────────────────
   - type: web
-    name: loopwrite
+    name: loopwrite-backend
     runtime: python
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
     envVars:
       - key: LLM_PROVIDER
         value: groq
+      # Set these manually in the Render dashboard — never commit values
       - key: GROQ_API_KEY
-        sync: false       # set manually in Render dashboard — never committed
+        sync: false
       - key: GOOGLE_API_KEY
         sync: false
       - key: OPENROUTER_API_KEY
         sync: false
+      # Comma-separated list of allowed frontend origins, e.g. https://loopwrite-frontend.onrender.com
+      - key: ALLOWED_ORIGINS
+        sync: false
+
+  # ── Frontend: Next.js / Node ───────────────────────────────────────────────
+  - type: web
+    name: loopwrite-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     healthCheckPath: /
     autoDeploy: true
+    envVars:
+      # Set to your backend service URL, e.g. https://loopwrite-backend.onrender.com
+      - key: NEXT_PUBLIC_API_URL
+        sync: false

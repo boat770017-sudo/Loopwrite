@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 *.pyc
 
-# ─── Virtual environment ─────────────────────────────────────────────────────
+# ─── Virtual environments ─────────────────────────────────────────────────────
 venv/
 .venv/
 env/
@@ -12,7 +12,15 @@ env/
 
 # ─── Environment / secrets ───────────────────────────────────────────────────
 .env
-.streamlit/secrets.toml
+.env.local
+.env.*.local
+backend/.env
+
+# ─── Node / Next.js ──────────────────────────────────────────────────────────
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
 
 # ─── OS cruft ────────────────────────────────────────────────────────────────
 .DS_Store
