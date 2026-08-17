@@ -1,5 +1,5 @@
 {
-  "name": "loopwrite-frontend",
+  "name": "loopwrite",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,10 @@
   "dependencies": {
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "groq": "^0.9.0",
+    "@google/generative-ai": "^0.7.0",
+    "openai": "^1.30.0"
   },
   "devDependencies": {
     "@types/node": "^20",

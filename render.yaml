@@ -1,12 +1,11 @@
 services:
-  # ── Backend: FastAPI / Python ──────────────────────────────────────────────
   - type: web
-    name: loopwrite-backend
-    runtime: python
-    rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /health
+    name: loopwrite
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
     autoDeploy: true
     envVars:
       - key: LLM_PROVIDER
@@ -17,21 +16,4 @@ services:
       - key: GOOGLE_API_KEY
         sync: false
       - key: OPENROUTER_API_KEY
-        sync: false
-      # Comma-separated list of allowed frontend origins, e.g. https://loopwrite-frontend.onrender.com
-      - key: ALLOWED_ORIGINS
-        sync: false
-
-  # ── Frontend: Next.js / Node ───────────────────────────────────────────────
-  - type: web
-    name: loopwrite-frontend
-    runtime: node
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm start
-    healthCheckPath: /
-    autoDeploy: true
-    envVars:
-      # Set to your backend service URL, e.g. https://loopwrite-backend.onrender.com
-      - key: NEXT_PUBLIC_API_URL
         sync: false
