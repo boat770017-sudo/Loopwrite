@@ -37,7 +37,7 @@ async function generateGroq(prompt: string, system: string): Promise<string> {
     const Groq = (await import('groq-sdk')).default
     const client = new Groq({ apiKey })
     const res = await client.chat.completions.create({
-      model: process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile',
+      model: process.env.GROQ_MODEL ?? 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: system },
         { role: 'user',   content: prompt },
